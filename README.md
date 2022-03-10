@@ -22,6 +22,7 @@ Features:
 -Simple segment joins  
 
 Considered Future Features:  
+-Demo scene  
 -Set points in inspector  
 -Mitered segment joins  
 -Rounded segment joins  
