@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
-using Unity.Burst;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Burst;
 using Unity.Mathematics;
 using Unity.Jobs;
 using Unity.Collections;
@@ -87,7 +87,41 @@ public class UILineRenderer : Graphic
         }
     }
     
-    public void SetPositions(float2[] points)
+    private struct Vector2ToFloat2Job : IJobParallelFor
+    {
+        [ReadOnly] public NativeArray<Vector2> vector2s;
+        public NativeArray<float2> result;
+
+        public void Execute(int index)
+        {
+            result[index] = vector2s[index];
+        }
+    }
+    
+    public void SetPoints(Vector2[] points)
+    {
+        int count = points.Length;
+        if (count < 2)
+        {
+            Debug.LogWarning("Positions array must have at least 2 elements.");
+            return;
+        }
+        
+        resolution = count;
+
+        NativeArray<Vector2> vector2s = new NativeArray<Vector2>(points, Allocator.TempJob);
+        NativeArray<float2> float2s = new NativeArray<float2>(resolution, Allocator.TempJob);
+        var vector2ToFloat2Job = new Vector2ToFloat2Job();
+        vector2ToFloat2Job.vector2s = vector2s;
+        vector2ToFloat2Job.result = float2s;
+        vector2ToFloat2Job.Schedule(resolution, 32).Complete();
+        this.positions = float2s.ToArray();
+        vector2s.Dispose();
+        float2s.Dispose();
+        CalculateVertexPositions();
+    }
+    
+    public void SetPoints(float2[] points)
     {
         int count = points.Length;
         if (count < 2)
