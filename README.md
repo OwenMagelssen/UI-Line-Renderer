@@ -16,18 +16,19 @@ uiLineRenderer.SetPositions(vector2Array);
 uiLineRenderer.SetPositions(float2Array);
 ```
 
-Features:
--Set points from script
--Rounded end caps
--Simple segment joins
+Features:  
+-Set points from script  
+-Rounded end caps  
+-Simple segment joins  
 
-Considered Future Features:
--Set points in inspector
--Mitered segment joins
--Rounded segment joins
--New end cap shapes
--Dashed lines
--Proper UVs and Shaders made for UILineRenderer
+Considered Future Features:  
+-Demo scene  
+-Set points in inspector  
+-Mitered segment joins  
+-Rounded segment joins  
+-New end cap shapes  
+-Dashed lines  
+-Proper UVs and Shaders made for UILineRenderer  
 
 
 MIT License.
