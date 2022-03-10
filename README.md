@@ -7,13 +7,13 @@ This project is setup with Unity 2021.2.6f1 and URP, but should work with most e
 Example Use:
 
 ```
-uiLineRenderer.SetPoints(vector2Array);
+uiLineRenderer.SetPositions(vector2Array);
 ```
 
 ...or slightly more efficiently:
 
 ```
-uiLineRenderer.SetPoints(float2Array);
+uiLineRenderer.SetPositions(float2Array);
 ```
 
 Features:

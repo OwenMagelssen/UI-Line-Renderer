@@ -29,6 +29,61 @@ public class UILineRenderer : Graphic
     //         CalculateVertexPositions();
     // }
 
+    public Vector2[] GetPositions()
+    {
+        var float2s = new NativeArray<float2>(positions, Allocator.TempJob);
+        var vector2s = new NativeArray<Vector2>(resolution, Allocator.TempJob);
+        var float2ToVector2Job = new Float2ToVector2Job();
+        float2ToVector2Job.float2s = float2s;
+        float2ToVector2Job.result = vector2s;
+        float2ToVector2Job.Schedule(resolution, 32).Complete();
+        var result = vector2s.ToArray();
+        float2s.Dispose();
+        vector2s.Dispose();
+        return result;
+    }
+
+    public Vector2 GetFirstPosition() => startPoint;
+    
+    public Vector2 GetLastPosition() => endPoint;
+    
+    public void SetPositions(Vector2[] positions)
+    {
+        int count = positions.Length;
+        if (count < 2)
+        {
+            Debug.LogWarning("Positions array must have at least 2 elements.");
+            return;
+        }
+        
+        resolution = count;
+
+        NativeArray<Vector2> vector2s = new NativeArray<Vector2>(positions, Allocator.TempJob);
+        NativeArray<float2> float2s = new NativeArray<float2>(resolution, Allocator.TempJob);
+        var vector2ToFloat2Job = new Vector2ToFloat2Job();
+        vector2ToFloat2Job.vector2s = vector2s;
+        vector2ToFloat2Job.result = float2s;
+        vector2ToFloat2Job.Schedule(resolution, 32).Complete();
+        this.positions = float2s.ToArray();
+        vector2s.Dispose();
+        float2s.Dispose();
+        CalculateVertexPositions();
+    }
+    
+    public void SetPositions(float2[] positions)
+    {
+        int count = positions.Length;
+        if (count < 2)
+        {
+            Debug.LogWarning("Positions array must have at least 2 elements.");
+            return;
+        }
+        
+        resolution = count;
+        this.positions = positions;
+        CalculateVertexPositions();
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static float2 Rotate90(float2 vector)
     {
@@ -97,42 +152,16 @@ public class UILineRenderer : Graphic
             result[index] = vector2s[index];
         }
     }
-    
-    public void SetPoints(Vector2[] points)
-    {
-        int count = points.Length;
-        if (count < 2)
-        {
-            Debug.LogWarning("Positions array must have at least 2 elements.");
-            return;
-        }
-        
-        resolution = count;
 
-        NativeArray<Vector2> vector2s = new NativeArray<Vector2>(points, Allocator.TempJob);
-        NativeArray<float2> float2s = new NativeArray<float2>(resolution, Allocator.TempJob);
-        var vector2ToFloat2Job = new Vector2ToFloat2Job();
-        vector2ToFloat2Job.vector2s = vector2s;
-        vector2ToFloat2Job.result = float2s;
-        vector2ToFloat2Job.Schedule(resolution, 32).Complete();
-        this.positions = float2s.ToArray();
-        vector2s.Dispose();
-        float2s.Dispose();
-        CalculateVertexPositions();
-    }
-    
-    public void SetPoints(float2[] points)
+    private struct Float2ToVector2Job : IJobParallelFor
     {
-        int count = points.Length;
-        if (count < 2)
+        [ReadOnly] public NativeArray<float2> float2s;
+        public NativeArray<Vector2> result;
+
+        public void Execute(int index)
         {
-            Debug.LogWarning("Positions array must have at least 2 elements.");
-            return;
+            result[index] = float2s[index];
         }
-        
-        resolution = count;
-        this.positions = points;
-        CalculateVertexPositions();
     }
     
     // adding a context menu option because OnTransformParentChanged event doesn't trigger
