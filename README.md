@@ -23,6 +23,8 @@ Features:
 
 Considered Future Features:  
 -Demo scene  
+-Closed loop lines  
+-Per-point line width  
 -Set points in inspector  
 -Mitered segment joins  
 -Rounded segment joins  
