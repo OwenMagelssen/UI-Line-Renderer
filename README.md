@@ -21,7 +21,7 @@ Features:
 -Rounded end caps  
 -Simple segment joins  
 
-Considered Future Features:  
+In Consideration:  
 -Maskable  
 -Closed loop lines  
 -Per-point line width  
