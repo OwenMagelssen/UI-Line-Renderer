@@ -22,7 +22,7 @@ Features:
 -Simple segment joins  
 
 Considered Future Features:  
--Demo scene  
+-Maskable  
 -Closed loop lines  
 -Per-point line width  
 -Set points in inspector  
@@ -30,7 +30,6 @@ Considered Future Features:
 -Rounded segment joins  
 -New end cap shapes  
 -Dashed lines  
--Proper UVs and Shaders made for UILineRenderer  
 
 
 MIT License.
