@@ -21,7 +21,8 @@ Features:
 -Rounded end caps  
 -Simple segment joins  
 
-In Consideration:  
+In Consideration: 
+-Set 3D positions for points  
 -Maskable  
 -Closed loop lines  
 -Per-point line width  
