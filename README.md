@@ -31,7 +31,7 @@ In Consideration:
 -Rounded segment joins  
 -New end cap shapes  
 -Dashed lines  
--Gradients
+-Gradients  
 -Start/end colors
 
 
