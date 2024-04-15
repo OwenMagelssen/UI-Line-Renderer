@@ -31,6 +31,8 @@ In Consideration:
 -Rounded segment joins  
 -New end cap shapes  
 -Dashed lines  
+-Gradients
+-Start/end colors
 
 
 MIT License.
