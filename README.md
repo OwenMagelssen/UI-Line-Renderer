@@ -17,22 +17,22 @@ uiLineRenderer.SetPositions(float2Array);
 ```
 
 Features:  
--Set points from script  
--Rounded end caps  
--Simple segment joins  
+- Set points from script  
+- Rounded end caps  
+- Simple segment joins  
 
 In Consideration:  
--Set 3D positions for points  
--Maskable  
--Closed loop lines  
--Per-point line width  
--Set points in inspector  
--Mitered segment joins  
--Rounded segment joins  
--New end cap shapes  
--Dashed lines  
--Gradients  
--Start/end colors
+- Set 3D positions for points  
+- Maskable  
+- Closed loop lines  
+- Per-point line width  
+- Set points in inspector  
+- Mitered segment joins  
+- Rounded segment joins  
+- New end cap shapes  
+- Dashed lines  
+- Gradients  
+- Start/end colors
 
 
 MIT License.
